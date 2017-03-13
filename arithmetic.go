@@ -1,8 +1,6 @@
 package protean
 
-import (
-	"errors"
-)
+import "errors"
 
 // Here is some background reading on arithmetic coding and range coding.
 // http://www.arturocampos.com/ac_arithmetic.html
@@ -409,8 +407,8 @@ type Decoder struct {
 
 // Decode a sequence of bytes
 func (this *Decoder) Decode(input []byte) []byte {
-	// Create an empty input buffer.
-	this.input = []uint32{}
+	// Create an empty input buffer.)
+	this.input = make([]uint32, len(input))
 
 	// Fetch the size of the target output.
 	// This is encoded as two bytes at the end of the encoded byte sequence.
@@ -419,8 +417,8 @@ func (this *Decoder) Decode(input []byte) []byte {
 	var size = decodeShort(sizeBytes) - 4
 
 	// Copy the bytes from the given []byte into the internal input buffer.
-	for index := uint16(0); index < size; index++ {
-		this.input = append(this.input, uint32(input[index]))
+	for index := uint16(0); index < uint16(len(input)); index++ {
+		this.input[index] = uint32(input[index])
 	}
 
 	// Initialize state.
@@ -440,6 +438,10 @@ func (this *Decoder) Decode(input []byte) []byte {
 	output := make([]byte, len(this.output))
 	for index, item := range this.output {
 		output[index] = byte(item)
+	}
+
+	if uint16(len(output)) > size {
+		output = output[:size]
 	}
 
 	return output

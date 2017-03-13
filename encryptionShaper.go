@@ -141,7 +141,7 @@ func encrypt(key []byte, iv []byte, buffer []byte) []byte {
 
 func encodeShort(value uint16) []byte {
 	buf := new(bytes.Buffer)
-	err := binary.Write(buf, binary.LittleEndian, value)
+	err := binary.Write(buf, binary.BigEndian, value)
 	if err != nil {
 		fmt.Println("binary.Write failed:", err)
 	}
@@ -153,7 +153,7 @@ func encodeShort(value uint16) []byte {
 func decodeShort(b []byte) uint16 {
 	var value uint16
 	reader := bytes.NewReader(b)
-	err := binary.Read(reader, binary.LittleEndian, &value)
+	err := binary.Read(reader, binary.BigEndian, &value)
 	if err != nil {
 		fmt.Println("binary.Read failed:", err)
 	}

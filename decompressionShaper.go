@@ -11,7 +11,7 @@ type DecompressionConfig struct {
 
 // Creates a sample (non-random) config, suitable for testing.
 func sampleDecompressionConfig() DecompressionConfig {
-	probs := []uint32{}
+	probs := make([]uint32, 256)
 	for index := 0; index < 256; index++ {
 		probs[index] = 1
 	}
