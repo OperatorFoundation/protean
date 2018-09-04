@@ -151,7 +151,7 @@ func (shaper *ByteSequenceShaper) Transform(buffer []byte) [][]byte {
 	// where a packet injection could possibly occur.
 	if shaper.OutputIndex <= shaper.LastIndex {
 		// Injection has not finished, but may not have started yet.
-		if shaper.OutputIndex >= shaper.FirstIndex {
+		if shaper.OutputIndex >= shaper.FirstIndex - 1 {
 			// Injection has started and has not finished, so check to see if it is
 			// time to inject a packet.
 
